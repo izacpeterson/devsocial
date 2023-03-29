@@ -7,7 +7,7 @@ db.run("CREATE TABLE IF NOT EXISTS following (user TEXT, follows TEXT)");
 
 export async function getFeed(user) {
   return new Promise((resolve, reject) => {
-    db.all("SELECT title, body, date, username FROM following INNER JOIN posts ON posts.user = following.follows INNER JOIN users ON posts.user = users.uuid WHERE following.user = ?", [user], (err, rows) => {
+    db.all("SELECT title, body, date, username, uuid FROM following INNER JOIN posts ON posts.user = following.follows INNER JOIN users ON posts.user = users.uuid WHERE following.user = ?", [user], (err, rows) => {
       if (err) {
         console.log(err);
       }
@@ -55,5 +55,7 @@ export async function checkFollowing(user, follows) {
 export async function setTheme(theme, user) {
   db.run("UPDATE users SET theme = ? WHERE uuid = ?", [theme, user], (err) => {});
 }
+
+export async function register(username, password) {}
 
 export { db };
