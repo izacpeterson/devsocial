@@ -5,6 +5,7 @@
   console.log(data);
 
   async function follow(user, uuid) {
+    console.log(uuid);
     fetch(`/api/userFollow?user=${user}&follows=${uuid}`);
     data.following = true;
   }
@@ -24,7 +25,10 @@
       <!-- <button class="btn btn-primary">Chat</button>-->
       <div />
     {:else}
-      <button class="btn btn-primary" on:click={follow(data.loggedInUser, data.user.uuid)}>Follow</button>
+      <button
+        class="btn btn-primary"
+        on:click={follow(data.loggedInUser, data.user.userID)}>Follow</button
+      >
     {/if}
   </div>
   {#if data.posts[0].title}

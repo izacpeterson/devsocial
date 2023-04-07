@@ -19,20 +19,22 @@ export async function getFeed(user) {
         if (err) {
           console.log(err);
         }
-        rows = rows.map(async (post) => {
-          let likes = await getLikeCount(post.postID);
-          console.log(likes);
-          let userLikes = false;
-          likes.forEach((like) => {
-            console.log(like.user);
-            if ((like.user = user)) {
-              userLikes = true;
-            }
+        if (rows) {
+          rows = rows.map(async (post) => {
+            let likes = await getLikeCount(post.postID);
+            console.log(likes);
+            let userLikes = false;
+            likes.forEach((like) => {
+              console.log(like.user);
+              if ((like.user = user)) {
+                userLikes = true;
+              }
+            });
+            post.likes = likes.length;
+            post.userLikes = userLikes;
+            return post;
           });
-          post.likes = likes.length;
-          post.userLikes = userLikes;
-          return post;
-        });
+        }
 
         resolve(Promise.all(rows));
       }
@@ -59,7 +61,7 @@ export async function getUserById(uuid) {
       (err, rows) => {
         if (rows.length == 0) {
           db.all(
-            "SELECT username, uuid FROM users WHERE uuid = ?",
+            "SELECT username, uuid as userID FROM users WHERE uuid = ?",
             [uuid],
             (err, rows) => {
               resolve(rows);
