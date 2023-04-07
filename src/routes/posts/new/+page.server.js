@@ -11,6 +11,9 @@ export const actions = {
 
     let date = new Date();
 
-    db.run("INSERT INTO posts (title, body, user, date) VALUES (?, ?, ?, ?)", [title, body, user, date.toLocaleString()]);
+    db.run(
+      "INSERT INTO posts (title, body, user, date, uuid) VALUES (?, ?, ?, ?, ?)",
+      [title, body, user, date.toLocaleString(), crypto.randomUUID()]
+    );
   },
 };
