@@ -59,31 +59,34 @@ export async function getUserById(uuid) {
       "SELECT title, body, date, username, users.uuid AS userID, posts.uuid AS postID FROM users INNER JOIN posts ON users.uuid = posts.user WHERE users.uuid = ?",
       [uuid],
       (err, rows) => {
-        if (rows.length == 0) {
-          db.all(
-            "SELECT username, uuid as userID FROM users WHERE uuid = ?",
-            [uuid],
-            (err, rows) => {
-              resolve(rows);
-            }
-          );
-        } else {
-          rows = rows.map(async (post) => {
-            let likes = await getLikeCount(post.postID);
-            console.log(likes);
-            let userLikes = false;
-            likes.forEach((like) => {
-              console.log(like.user);
-              if ((like.user = uuid)) {
-                userLikes = true;
+        if (rows) {
+          if (rows.length == 0) {
+            db.all(
+              "SELECT username, uuid as userID FROM users WHERE uuid = ?",
+              [uuid],
+              (err, rows) => {
+                console.log("ERR", err);
+                resolve(rows);
               }
+            );
+          } else {
+            rows = rows.map(async (post) => {
+              let likes = await getLikeCount(post.postID);
+              console.log(likes);
+              let userLikes = false;
+              likes.forEach((like) => {
+                console.log(like.user);
+                if ((like.user = uuid)) {
+                  userLikes = true;
+                }
+              });
+              post.likes = likes.length;
+              post.userLikes = userLikes;
+              return post;
             });
-            post.likes = likes.length;
-            post.userLikes = userLikes;
-            return post;
-          });
 
-          resolve(Promise.all(rows));
+            resolve(Promise.all(rows));
+          }
         }
       }
     );
