@@ -15,10 +15,10 @@
 </svelte:head>
 
 <header>
-  <h1 class="bg-base-200 text-white text-3xl p-2 shadow">Dev Social</h1>
+  <h1 class="bg-primary dark:bg-base-200 text-white text-3xl p-2 shadow">Dev Social</h1>
 </header>
 
-<main class="">
+<main class="pb-20">
   <i class="fa-solid fa-house" />
   <!-- <h1>Dev Social</h1> -->
   <slot />

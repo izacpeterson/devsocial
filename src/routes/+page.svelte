@@ -35,11 +35,11 @@
 
 <AuthChecker>
   {#each posts as post}
-    <div class="card card-compact shadow m-4 bg-base-200">
+    <div class="card card-compact shadow-md m-4 bg-base-200">
       <div class="card-body">
         <div class="flex items-center justify-between">
-          <img src={post.userPhoto} alt="" class="w-10 h-10 rounded-full" />
-          <span class="">{post.username}</span>
+          <img src={post.userPhoto} alt="" class="w-10 h-10 rounded-full mr-4" />
+          <span class="text-xl font-bold">{post.username}</span>
           <span class="text-xs text-right flex-1">{new Date(post.dateTime).toLocaleString()}</span>
         </div>
         <p>{post.text}</p>
