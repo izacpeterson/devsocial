@@ -1,4 +1,5 @@
 <script>
+  import AuthChecker from "$lib/components/AuthChecker.svelte";
   import { currentUser, db } from "$lib/firebase";
   import { doc, setDoc } from "firebase/firestore";
 
@@ -24,13 +25,15 @@
   }
 </script>
 
-<form action="" class="card bg-base-200 m-4 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title">New Post</h2>
-    <textarea bind:value={postText} class="textarea" name="" id="" cols="30" rows="10" />
-    <div class="card-actions justify-end">
-      <button class="btn btn-error">Cancel</button>
-      <button on:click={handePost} class="btn btn-primary">Post</button>
+<AuthChecker
+  ><form action="" class="card bg-base-200 m-4 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">New Post</h2>
+      <textarea bind:value={postText} class="textarea" name="" id="" cols="30" rows="10" />
+      <div class="card-actions justify-end">
+        <button class="btn btn-error">Cancel</button>
+        <button on:click={handePost} class="btn btn-primary">Post</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</AuthChecker>
