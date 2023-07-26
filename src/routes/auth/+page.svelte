@@ -1,6 +1,6 @@
 <script>
   import { auth, currentUser } from "$lib/firebase";
-  import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+  import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
   async function handleSignin() {
     const provider = new GoogleAuthProvider();
@@ -16,6 +16,18 @@
     {:else}
       <p class="pb-4 text-center">Welcome, {$currentUser.displayName}</p>
       <div class="card-actions justify-end">
+        <button
+          on:click={() => {
+            signOut(auth)
+              .then(() => {
+                // Sign-out successful.
+              })
+              .catch((error) => {
+                // An error happened.
+              });
+          }}
+          class="btn btn-warning">Logout</button
+        >
         <a href="/auth/username" class="btn btn-primary">Set Username</a>
       </div>
     {/if}

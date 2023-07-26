@@ -9,7 +9,7 @@
   }
 </script>
 
-{#if currentUser}
+{#if $currentUser}
   <slot />
 {:else}
   <div class="card">

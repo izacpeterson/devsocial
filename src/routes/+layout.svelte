@@ -9,7 +9,7 @@
   <h1 class="bg-base-200 text-white text-3xl p-2 shadow">Dev Social</h1>
 </header>
 
-<AuthChecker data-theme="business">
+<AuthChecker>
   <main class="">
     <!-- <h1>Dev Social</h1> -->
     <slot />
