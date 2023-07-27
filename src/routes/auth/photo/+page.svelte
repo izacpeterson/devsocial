@@ -12,18 +12,14 @@
     const fileExtention = file.name.split(".").pop();
 
     const storageRef = ref(storage, `users/${$currentUser.uid}/profile.${fileExtention}`);
-    const result = await uploadBytes(storageRef, file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
-    });
+    const result = await uploadBytes(storageRef, file).then((snapshot) => {});
 
     url = await getDownloadURL(storageRef);
 
     const userRef = doc(db, "users", $currentUser.uid);
     await updateDoc(userRef, {
       photoURL: url,
-    }).then(() => {
-      console.log("Document successfully updated!");
-    });
+    }).then(() => {});
   }
 </script>
 

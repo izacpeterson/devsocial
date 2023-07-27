@@ -14,7 +14,6 @@
       let post = doc.data();
       post.username = user.username;
       post.userPhoto = user.photoURL;
-      console.log(post);
 
       posts = [...posts, post];
     });
@@ -28,7 +27,6 @@
     });
   }
 
-  $: console.log("POSTS", posts);
 </script>
 
 <i class="fa-solid fa-house" />

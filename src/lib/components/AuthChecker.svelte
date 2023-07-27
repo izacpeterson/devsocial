@@ -5,7 +5,6 @@
   async function handleSignin() {
     const provider = new GoogleAuthProvider();
     let user = await signInWithPopup(auth, provider);
-    console.log(user);
   }
 </script>
 

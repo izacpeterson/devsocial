@@ -27,7 +27,6 @@ export const storage = getStorage();
 export const currentUser = writable(auth.currentUser);
 
 onAuthStateChanged(auth, async (user) => {
-  console.log("Auth state changed");
   if (user) {
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);

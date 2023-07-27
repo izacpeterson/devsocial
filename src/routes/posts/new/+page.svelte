@@ -16,8 +16,6 @@
       comments: [],
     };
 
-    console.log(post);
-
     let uuid = crypto.randomUUID();
     await setDoc(doc(db, "posts", uuid), post).then(() => {
       window.location = "/";

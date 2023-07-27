@@ -12,12 +12,10 @@
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.size > 0) {
-      console.log("Username already exists");
       available = false;
       loading = false;
       return;
     } else {
-      console.log("Username is available");
       available = true;
       loading = false;
     }
@@ -32,13 +30,9 @@
       email: $currentUser.email,
       photoURL: "",
     };
-    await setDoc(userRef, user, { merge: true }).then(() => {
-      console.log("Document successfully written!");
-    });
+    await setDoc(userRef, user, { merge: true }).then(() => {});
     done = true;
   }
-
-  $: console.log($currentUser);
 </script>
 
 <main class="card">
