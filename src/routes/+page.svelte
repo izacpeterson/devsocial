@@ -1,13 +1,26 @@
 <script>
   import AuthChecker from "$lib/components/AuthChecker.svelte";
   import { currentUser, db } from "$lib/firebase";
-  import { collection, query, where, onSnapshot, doc, getDoc } from "firebase/firestore";
+  import { collection, query, where, onSnapshot, doc, getDoc, getDocs } from "firebase/firestore";
 
   let posts = [];
   const q = query(collection(db, "posts"));
 
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    posts = [];
+  // const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //   posts = [];
+  //   querySnapshot.forEach(async (doc) => {
+  //     let user = await getUserdata(doc.data().user);
+  //     // posts.push(doc.data());
+  //     let post = doc.data();
+  //     post.username = user.username;
+  //     post.userPhoto = user.photoURL;
+
+  //     posts = [...posts, post];
+  //   });
+  // });
+
+  async function getPosts() {
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (doc) => {
       let user = await getUserdata(doc.data().user);
       // posts.push(doc.data());
@@ -17,7 +30,7 @@
 
       posts = [...posts, post];
     });
-  });
+  }
 
   async function getUserdata(uid) {
     return new Promise(async (resolve, reject) => {
@@ -27,6 +40,7 @@
     });
   }
 
+  getPosts();
 </script>
 
 <i class="fa-solid fa-house" />

@@ -1,12 +1,12 @@
 <script>
   import AuthChecker from "$lib/components/AuthChecker.svelte";
-  import { currentUser, db } from "$lib/firebase";
+  import { currentUser, db, newPost } from "$lib/firebase";
   import { doc, setDoc } from "firebase/firestore";
 
   let postText = "";
 
   async function handePost() {
-    let post = {
+    newPost({
       text: postText,
       user: $currentUser.uid,
       username: $currentUser.username,
@@ -14,17 +14,14 @@
       dateTime: new Date().toISOString(),
       likes: [],
       comments: [],
-    };
-
-    let uuid = crypto.randomUUID();
-    await setDoc(doc(db, "posts", uuid), post).then(() => {
-      window.location = "/";
+    }).then(() => {
+      window.location.href = "/";
     });
   }
 </script>
 
-<AuthChecker
-  ><form action="" class="card bg-base-200 m-4 shadow-xl">
+<AuthChecker>
+  <form action="" class="card bg-base-200 m-4 shadow-xl">
     <div class="card-body">
       <h2 class="card-title">New Post</h2>
       <textarea bind:value={postText} class="textarea" name="" id="" cols="30" rows="10" />

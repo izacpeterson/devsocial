@@ -2,11 +2,15 @@
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "base-200": "#303030",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    // themes: ["corporate", "business"],
-    darkTheme: "dark",
+    themes: ["corporate", "business"],
+    darkTheme: "business",
   },
 };

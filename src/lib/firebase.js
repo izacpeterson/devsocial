@@ -1,9 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { writable } from "svelte/store";
 import { getStorage } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,3 +39,9 @@ onAuthStateChanged(auth, async (user) => {
     currentUser.set(null);
   }
 });
+
+export async function newPost(post) {
+  let uuid = uuidv4();
+  await setDoc(doc(db, "posts", uuid), post);
+  return uuid;
+}
